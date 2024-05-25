@@ -1,0 +1,142 @@
+/* Header Part */
+.Header{
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: space-around;
+    padding-top: .5rem;
+    padding-bottom: 1rem;
+  }
+  
+  .companyLogoTitle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 10%;
+    gap:2%;
+  }
+  
+  .companyLogoTitle h1{
+    /* background: linear-gradient(to bottom,#E9EDF6,#E9EDF6); */
+    background: -webkit-linear-gradient( #000000, rgba(0, 0, 0, 0));
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: Krona One;
+    font-size: 36px;
+    font-weight: 400;
+    white-space:nowrap;
+  }
+  
+  /* .Branch{
+    /* width: 66px;
+    height: 22px; */
+    font-size: 16px;
+    font-weight: 400;
+    /* text-align: left; */
+    /* padding-bottom: 40px; */
+  }
+  
+  .Branch select{
+    border: none;
+    background-color: #E9EDF6;
+    /* font-family: Inter; */
+    font-size: 16px;
+    font-weight: 700;
+    /* margin-right: 100%; */
+  } */
+  
+  .Branch {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.select-wrapper select {
+    border: none;
+    background-color: #E9EDF6;
+    font-size: 16px;
+    font-weight: 700;
+    padding-right: 2rem; /* Make space for the icon */
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none; /* Remove default arrow in Safari */
+    -moz-appearance: none; /* Remove default arrow in Firefox */
+}
+
+.select-wrapper .select-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Allow clicks to go through the icon */
+}
+  
+  
+  .country{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 3px;
+    border: 1px solid #6B6B6B;
+    /* width: 124px;
+    height: 30px; */
+    border-radius: 18px;
+    gap: .5rem;
+  }
+  .country svg{
+    width: 26px;
+    height: 26px;
+  }
+  
+  .NotifyIcon{
+    width: 42px;
+    height: 42px;
+    margin-left: -3%;
+  }
+  
+  .Profile{
+    /* width: 217px;
+    height: 95px; */
+    /* border: 1px solid black;
+    border-radius: 30px 50px 47.5px 30px; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 1rem;
+  }
+  
+  .Profile img{
+    /* width: 76px;
+    height: 76px; */
+    border-radius: 50%; 
+    outline: 3px solid  #7691F9;
+  }
+  
+  .Profile h2{
+    /* width: 96px;
+    height: 35px; */
+    font-size: 30px;
+    font-weight: 700;
+  }
+  
+  .Profile p{
+    /* width: 92px;
+    height: 22px; */
+    font-size: 24px;
+    font-weight: 400;
+  }
+  
+  .settingIcon{
+    width: 24px;
+    height: 24px;
+    /* padding: 2px 2.49px 2px 1.86px; */
+    margin-left: 50px;
+    /* margin-top: 4px; */
+  }

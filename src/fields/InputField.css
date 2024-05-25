@@ -1,0 +1,10 @@
+.field{
+    display: inline-block;
+    position: relative;
+}
+
+.field label{
+    position: absolute;
+    top:-50%;
+    left: 2.25%;
+}
