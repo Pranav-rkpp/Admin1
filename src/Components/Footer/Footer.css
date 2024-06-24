@@ -1,0 +1,9 @@
+/* Footer Part */
+.Footer {
+  text-align: center;
+  position: fixed;
+  bottom: .5rem;
+  width: 100%;
+  font-size: 10px;
+  font-weight: 400;
+}

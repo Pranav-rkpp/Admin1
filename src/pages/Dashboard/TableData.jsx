@@ -20,13 +20,19 @@ function TableData({ details }) {
                 </tr>
             </thead>
             <tbody>
-                {details.map((detail,index) => (
+                {details.map((detail, index) => (
                     <tr key={index}>
                         <td>{detail.organizationName}</td>
                         <td>{detail.email}</td>
                         <td>{detail.phoneNumber}</td>
                         <td>{detail.orgType}</td>
-                        <td>{detail.licenceterm}</td>
+                        <td>
+                            {
+                                detail.licenceterm === '30' ? "Trail" :
+                                    detail.licenceterm === '90' ? "Quater-yearly" :
+                                        detail.licenceterm === '180' ? "Half-yearly" : "Yearly"
+                            }
+                        </td>
                         <td>{detail.expirydatetime}</td>
                         <td style={{ textAlign: 'center' }}>
                             {

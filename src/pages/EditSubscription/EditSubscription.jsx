@@ -5,19 +5,19 @@ import Inventory from '../../image/Inventory.png';
 import customerCare from '../../image/customerCare.png';
 import AssetManagement from '../../image/AssetManagement.png';
 import PointOfSale from '../../image/PointOfSale.png';
-import { IoIosArrowDown } from "react-icons/io";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import Header from '../../Components/Header';
-import Sidebar from '../../Components/Side';
-import Footer from '../../Components/Foot';
-import '../../css/App.css'
+import Header from '../../Components/Header/Header';
+import Sidebar from '../../Components/Side/Side';
+import Footer from '../../Components/Footer/Foot';
 import useAuth from '../../hooks/useAuth';
 import api from '../../api/details'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 function EditSubscription() {
 
     const { id } = useParams();
-    const { details, setDetails, isLoggedIn } = useAuth();
+    const { details, setDetails, isLoggedIn, licenseTerm, setLicenseTerm } = useAuth();
     const navigate = useNavigate();
     const detail = details.find(info => (info.id).toString() === id);
 
@@ -34,6 +34,7 @@ function EditSubscription() {
 
     const [selectedStatus, setSelectedStatus] = useState('');
 
+
     useEffect(() => {
         if (detail) {
             setEditOrganisationName(detail.organizationName);
@@ -48,15 +49,15 @@ function EditSubscription() {
             setEditSubscriptionFor(detail.subscriptionFor)
             setSelectedStatus(detail.activationstatus);
         }
-        console.log(detail)
+        // console.log(detail)
     }, [detail, setEditOrganisationName, setediteMail, seteditcontactNo, seteditlicenseTerm, seteditlicenseExpiry, setEditContactPerson, setEditAddress, setEditSubscriptionStartDate, setEditSubscriptionFor])
 
     //Edit Operation function
     const handleEdit = async (id) => {
 
         seteditstatus(selectedStatus);
-        const oldDetail = (details.filter(info => info.id === id))[0];
-        const newDetail = { ...oldDetail, organizationName: editOrganisationName, email: editeMail, phoneNumber: editcontactNo, contactPerson: editContactPerson, licenceterm: editlicenseTerm, expirydatetime: editlicenseExpiry, activationstatus: selectedStatus, address: editAddress, createddate: editSubscriptionStartDate, subscriptionFor: editSubscriptionFor, token: isLoggedIn };
+        // const oldDetail = (details.filter(info => info.id === id))[0];
+        const newDetail = { ...detail, organizationName: editOrganisationName, email: editeMail, phoneNumber: editcontactNo, contactPerson: editContactPerson, licenceterm: editlicenseTerm, expirydatetime: editlicenseExpiry, activationstatus: selectedStatus, address: editAddress, createddate: editSubscriptionStartDate, subscriptionFor: editSubscriptionFor, token: isLoggedIn };
         console.log(newDetail)
         try {
             const response = await api.put("/subscription/update", newDetail, {
@@ -100,31 +101,65 @@ function EditSubscription() {
         }
     };
 
-    const resetButton = () => {
-        setSubscriptionFor([])
-        setOrganisationName('');
-        seteMail('');
-        setContactNo('');
-        setContactPerson('');
-        setAddress('');
-        setSubscritptionDate('');
-        setOrgType('');
-        setLicenseTerm('');
-        setLicenseExpiry('');
-        setStatus('');
-    }
-
     useEffect(() => {
         calculateExpiry();
     }, [editSubscriptionStartDate, editlicenseTerm]);
 
     const calculateExpiry = () => {
         const startDateObj = new Date(editSubscriptionStartDate);
-        const expiryDateObj = new Date(startDateObj.getTime() + editlicenseTerm * 365 * 24 * 60 * 60 * 1000);
-        const formattedExpiryDate = `${expiryDateObj.getFullYear()}-${(expiryDateObj.getMonth() + 1).toString().padStart(2, '0')}-${expiryDateObj.getDate().toString().padStart(2, '0')} ${expiryDateObj.getHours().toString().padStart(2, '0')}:${expiryDateObj.getMinutes().toString().padStart(2, '0')}:${expiryDateObj.getSeconds().toString().padStart(2, '0')}`;
-
-        seteditlicenseExpiry(formattedExpiryDate);
+        const expiryDateObj = new Date(startDateObj.getTime() + editlicenseTerm * 24 * 60 * 60 * 1000); // licenseTerm is in days
+        if (!isNaN(expiryDateObj.getTime())) {
+            const year = expiryDateObj.getFullYear();
+            const month = (expiryDateObj.getMonth() + 1).toString().padStart(2, '0');
+            const day = expiryDateObj.getDate().toString().padStart(2, '0');
+            seteditlicenseExpiry(`${year}-${month}-${day} 00:00:00`);
+        } else {
+            seteditlicenseExpiry("");
+        }
     };
+
+    const formatStartDate = (date) => {
+        const expiryDateObj = new Date(new Date(date).getTime());
+        const year = expiryDateObj.getFullYear();
+        const month = (expiryDateObj.getMonth() + 1).toString().padStart(2, '0');
+        const day = expiryDateObj.getDate().toString().padStart(2, '0');
+        console.log(`${year}-${month}-${day} 00:00:00`)
+        setEditSubscriptionStartDate(`${year}-${month}-${day} 00:00:00`)
+    }
+
+    useEffect(() => {
+        const fetchLicenseTerm = async () => {
+            const AuthToken = JSON.parse(localStorage.getItem('AuthToken'))
+            try {
+                const response = await api.get("/subscription/getLicenseTerm", {
+                    headers: {
+                        "authToken": AuthToken.AuthorizationToken
+                    }
+                });
+                console.log(response.data);
+                const TempDetails = response.data
+                // setDetails(response.data);
+                console.log(JSON.parse(localStorage.getItem('AuthToken')))
+                if (TempDetails.length > 0) {
+                    setLicenseTerm(TempDetails);
+                    // console.log(licenseTerm)
+                }
+                else {
+                    localStorage.removeItem('AuthToken')
+                    setLoggedIn(false)
+                }
+            }
+            catch (err) {
+                if (err.response) {
+                    console.log(`Error: ${err.response.status} - ${err.response.statusText}`);
+                    console.log('Response data:', err.response.data);
+                } else {
+                    console.log(`Error: ${err.message}`);
+                }
+            }
+        }
+        fetchLicenseTerm();
+    }, []);
 
     return (
         <div className="App">
@@ -146,6 +181,7 @@ function EditSubscription() {
                                 disabled={editstatus === 'ACTIVE' || editstatus === 'SUSPENDED'}
                             />
                         </div>
+
                         <div className="field">
                             <label htmlFor='email'>Email<span className='star'>*</span></label>
                             <input
@@ -159,7 +195,7 @@ function EditSubscription() {
                             />
                         </div>
 
-<div className="field">
+                        <div className="field">
                             <label htmlFor='contactperson'>Contact Person<span className='star'>*</span></label>
                             <input
                                 id='contactperson'
@@ -171,6 +207,7 @@ function EditSubscription() {
                                 disabled={editstatus === 'ACTIVE' || editstatus === 'SUSPENDED'}
                             />
                         </div>
+
                         <div className="field">
                             <label htmlFor='contactno'>Contact Number<span className='star'>*</span></label>
                             <input
@@ -183,7 +220,7 @@ function EditSubscription() {
                                 disabled={editstatus === 'ACTIVE' || editstatus === 'SUSPENDED'}
                             />
                         </div>
-                        
+
                         <div className="field">
                             <label htmlFor='address'>Address<span className='star'>*</span></label>
                             <input
@@ -196,34 +233,34 @@ function EditSubscription() {
                                 disabled={editstatus === 'ACTIVE' || editstatus === 'SUSPENDED'}
                             />
                         </div>
+
                         <div className='licenseTerm'>
                             <div className="field">
-                                <label htmlFor='licenseterm'>License Term<span className='star'>*</span></label>
-                                <input
-                                    id='licenseterm'
-                                    type='text'
-                                    placeholder='License Term'
-                                    value={editlicenseTerm}
-                                    required
-                                    onChange={(e) => seteditlicenseTerm(e.target.value)}
-                                    disabled={editstatus === 'SUSPENDED'}
-                                />
+                                <label id='lblLicenseTerm'>License Term<span className='star'>*</span></label>
+                                <select name="License Term" className="licenseterm" value={editlicenseTerm} onChange={(e) => seteditlicenseTerm(e.target.value)} disabled={editstatus === 'SUSPENDED'}>
+                                    <option value="" disabled>Choose Anyone of the Plan</option>
+                                    {Array.isArray(licenseTerm) && licenseTerm.map((value, index) => (
+                                        <option key={index} value={value.numberOfDays}>
+                                            {value.licenseTerm}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
-                            <IoIosArrowDown className='downarrow' />
                         </div>
+
                         <div className="field">
                             <label htmlFor='subscriptionstartdate'>Subscription Start Date<span className='star'>*</span></label>
-                            <input
-                                id='subscriptionstartdate'
-                                type='text'
-                                placeholder='Subscription Start Date'
-                                value={editSubscriptionStartDate}
+                            <DatePicker
+                                selected={editSubscriptionStartDate}
+                                // onChange={editSubscriptionStartDate => formatStartDate(editSubscriptionStartDate)}
+                                onChange={date => formatStartDate(date)}
+                                dateFormat="yyyy-MM-dd HH:mm:ss"
                                 required
-                                readOnly
+                                placeholderText='Enter Start Subscription Date'
                                 disabled={editstatus === 'ACTIVE' || editstatus === 'SUSPENDED'}
-                            // onChange={(e)=>setEditSubscriptionStartDate(e.target.value)}
                             />
                         </div>
+
                         <div className="field">
                             <label htmlFor='licenseexpiry'>License Expiry<span className='star'>*</span></label>
                             <input
@@ -285,7 +322,7 @@ function EditSubscription() {
                         </div>
 
                         <div className='Buttons'>
-                            <Link to='/'><button type='reset' onClick={resetButton}>Cancel</button></Link>
+                            <Link to='/'><button type='reset'>Cancel</button></Link>
                             <button type='submit' onClick={() => handleEdit(detail.id)}>Save</button>
                         </div>
 

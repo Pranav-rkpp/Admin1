@@ -4,10 +4,9 @@ import TableData from "./TableData";
 import { Link, Outlet } from "react-router-dom";
 import { LuArrowRightCircle } from "react-icons/lu";
 import { IoSearch } from "react-icons/io5";
-import Footer from '../../Components/Foot';
-import Header from '../../Components/Header';
-import Sidebar from '../../Components/Side';
-import '../../css/App.css'
+import Footer from '../../Components/Footer/Foot';
+import Header from '../../Components/Header/Header';
+import Sidebar from '../../Components/Side/Side';
 import useAuth from '../../hooks/useAuth';
 import api from '../../api/details'
 
@@ -16,7 +15,7 @@ const Dashboard = () => {
     let { details, setDetails } = useAuth();
     const [search, setSearch] = useState('');
 
-    details = details.filter(detail => (
+    details = details.filter(detail => (detail.organizationName &&
         ((detail.organizationName).toLowerCase()).includes(search.toLowerCase())))
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -43,10 +42,9 @@ const Dashboard = () => {
                 });
                 console.log(response.data);
                 const TempDetails = response.data
-                // setDetails(response.data);
                 console.log(JSON.parse(localStorage.getItem('AuthToken')))
                 if (TempDetails.length > 0) {
-                    setDetails(response.data);
+                    setDetails(TempDetails);
                 }
                 else {
                     localStorage.removeItem('AuthToken')
@@ -68,8 +66,11 @@ const Dashboard = () => {
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('AuthToken')
-        setLoggedIn(false)
+        const userConfirmed = confirm("Are you sure you want to log out?");
+        if (userConfirmed) {
+            localStorage.removeItem('AuthToken');
+            setLoggedIn(false);
+        }
     }
 
     return (

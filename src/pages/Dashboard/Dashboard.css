@@ -1,78 +1,62 @@
-.Content{
+.App {
+    height: 100vh;
+    background-color: #E9EDF6;
+    position: relative;
+}
+
+.Main {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1.25rem;
+    justify-content: flex-end;
+    margin: 0 1.5rem;
+    position: relative;
+}
+
+.Content {
     background-color: #F4F4F4;
     padding: .25rem .75rem;
     border-radius: 1rem;
     width: 96.5%;
     height: 76vh;
-    /* 
-    margin-left: 48px;
-    display:flex; 
-    flex-direction: column;
-    align-items: stretch;
-    height: 78vh;
-    margin-top: .7%; */
-    /* position:relative; */
-    /* overflow-y:auto; */
 }
 
-/* .Content h2{
-    font-size: 24px;
-    font-weight: 700;
-} */
 
-/* .Content>*:last-child{
-    font-size: 16px;
-    font-weight: 400;
-} */
-
-.functionality{
+.functionality {
     display: flex;
     padding: .5rem 0;
-    /* margin: .5rem 0; */
     justify-content: space-between;
-    /* column-gap: 1rem; */
 }
 
-.searchBar{
-    position:relative;
+.searchBar {
+    position: relative;
 }
 
-.searchBar input{
+.searchBar input {
     background-color: #D7DEE8;
-    border:none;
-    /* width: 225px; */
-    /* height: 24px; */
-    padding:.25rem 0;
+    border: none;
+    padding: .25rem 0;
     border-radius: 5px;
     padding-left: 12.5%;
     padding-right: 12.5%;
 }
 
-.searchBar svg:first-child{
+.searchBar svg:first-child {
     position: absolute;
-    /* width: 15px; */
-    /* height: 15px; */
     top: 15%;
     left: 1.75%;
     color: #000000;
 }
 
-.searchBar svg:last-child{
+.searchBar svg:last-child {
     position: absolute;
-    /* width: 15px; */
-    /* height: 15px; */
     top: 15%;
     right: -23.5%;
-    /* color: #E5E9EE; */
-    /* background-color: #E5E9EE; */
 }
 
-.statusMessage{
+.statusMessage {
     background-color: #E0E5EC;
     margin-left: 2%;
-    /* width: 27.5%; */
-    /* height: 29px; */
-    /* padding: 4px 0; */
     border-radius: 3px;
     display: flex;
     flex-direction: row;
@@ -81,14 +65,11 @@
     align-items: center;
 }
 
-.functionality>*:nth-last-child(2){
+.functionality>*:nth-last-child(2) {
     background: linear-gradient(271.54deg, rgba(255, 17, 77, 0.8) 2.87%, rgba(228, 95, 128, 0.8) 155.87%);
     border-radius: 5px;
     border: none;
-    /* width: 17%; */
-    /* height: 24px; */
     border-radius: 5px;
-    /* font-family: Inter; */
     font-size: 12px;
     font-weight: 700;
     box-shadow: 0px 4px 4px 0px #00000040;
@@ -96,13 +77,9 @@
     padding: 0 3%;
 }
 
-.functionality>*:nth-last-child(1){
+.functionality>*:nth-last-child(1) {
     font-size: 12px;
     font-weight: 700;
-    /* width: 45px;
-    height: 12px;
-    width: 90px;
-    height: 24px; */
     border: none;
     border-radius: 5px;
     background-color: #F4F4F4;
@@ -110,6 +87,6 @@
     padding: 0 2.5%;
 }
 
-.Pagination{
+.Pagination {
     text-align: center;
 }

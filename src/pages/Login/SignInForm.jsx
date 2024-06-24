@@ -17,11 +17,9 @@ const SignInForm = () => {
     try {
       const response = await api.post('/user/login', credentials);
       console.log(response.data);
-      // setAuthToken(response.data.success.result.token)
       console.log(response.data.success.result.token)
       const authTokenObj = { AuthorizationToken: response.data.success.result.token }
       window.localStorage.setItem("AuthToken", JSON.stringify(authTokenObj))
-      // console.log(JSON.parse(localStorage.getItem('AuthToken')))
       setLoggedIn((JSON.parse(localStorage.getItem('AuthToken'))).AuthorizationToken)
       setAuthToken((JSON.parse(localStorage.getItem('AuthToken'))).AuthorizationToken)
       navigate('/')

@@ -1,18 +1,16 @@
-.sideBar{
+.sideBar {
     display: flex;
     flex-direction: column;
     row-gap: 1.5rem;
     position: absolute;
-    /* top:120px; */
     left: 0;
 }
 
-.sideBar svg{
+.sideBar svg {
     width: 24.57px;
     height: 24px;
 }
 
-.sideBar svg:first-child{
-    /* align-items: flex-start; */
+.sideBar svg:first-child {
     margin-bottom: 25px;
 }

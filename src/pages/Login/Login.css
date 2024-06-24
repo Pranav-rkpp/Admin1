@@ -1,141 +1,111 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Inter";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter";
 }
 
-.LoginApp{
-    height: 100vh;
-    background-image: url("../../image/backgroundImage.jpg");
-    /* background-position:top; */
-    background-size:100% 100vh;
-    background-repeat: no-repeat;
-    overflow: auto;
+.LoginApp {
+  height: 100vh;
+  background-image: url("../../image/backgroundImage.jpg");
+  background-size: 100% 100vh;
+  background-repeat: no-repeat;
+  overflow: auto;
 }
 
-.LoginHorizontalLine{
-    background-color: white;
-    width: 100%;
-    height: .25rem;
-    margin-top: 5%;
+.LoginHorizontalLine {
+  background-color: white;
+  width: 100%;
+  height: 0.25rem;
+  margin-top: 5%;
 }
 
-.LoginContent{   
-    display: flex;
-    flex-direction: column;
-    width: 95%;
-    margin: auto;
-    row-gap: .25rem;
-}
-.Loginadmin{
-    margin-top: 1rem;
+.LoginContent {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: auto;
+  row-gap: 0.25rem;
 }
 
-
-
-.LoginForm{
-    padding: 2.75rem 0;
-    /* background-color: rgb(128, 128, 128,.35); */
-    background: #D9D9D933;
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-    align-self: flex-end;
-    align-items: center;
-    /* justify-content: center; */
-    border-radius: 4rem;
-    row-gap: 1.25rem;
-    position: relative;
-    height: 75vh;
-    /* background: linear-gradient(#D9D9D933,#D9D9D933); */
-    backdrop-filter: blur(01px);
-    
+.Loginadmin {
+  margin-top: 1rem;
 }
 
-.LoginForm p{
-    margin-bottom: 2.75rem;
-    /* font-family: Inter;
-    font-size: 18px; */
-    /* font-weight: 400;
-    line-height: 21.78px;
-     */
-     text-align: center;
-
+.LoginForm {
+  padding: 2.75rem 0;
+  background: #d9d9d933;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  align-self: flex-end;
+  align-items: center;
+  border-radius: 4rem;
+  row-gap: 1.25rem;
+  position: relative;
+  height: 75vh;
+  backdrop-filter: blur(01px);
 }
 
-.LoginForm label, .LoginForm a{
-    color: #F5F5F5;
-    font-family: Inter;
-
-    font-family: Inter;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 21.78px;
-    /* text-align: left; */
-
+.LoginForm p {
+  margin-bottom: 2.75rem;
+  text-align: center;
 }
 
-.LoginForm input, .LoginForm button{
-    width: 330px;
-    border: 1px solid #00000080;
-    border-radius: 5px ;
-    height: 32px;
-    padding-left: .5rem;
-    
-    font-family: Inter;
-font-size: 18px;
-font-weight: 400;
-line-height: 21.78px;
-/* text-align: left; */
-
+.LoginForm label,
+.LoginForm a {
+  color: #f5f5f5;
+  font-family: Inter;
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21.78px;
 }
 
-.LoginForm button{
-    /* font-family: Inter; */
-/* font-size: 18px; */
-font-weight: 700;
-
-box-shadow: 0px 4px 4px 0px #00000040;
-
-
-
-
+.LoginForm input,
+.LoginForm button {
+  width: 330px;
+  border: 1px solid #00000080;
+  border-radius: 5px;
+  height: 32px;
+  padding-left: 0.5rem;
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21.78px;
 }
 
-.LogincheckBox{
-    display: flex;
-    flex-direction: row;
-    column-gap: .25rem;
-    align-items: center;
-    justify-content: center;
+.LoginForm button {
+  font-weight: 700;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.LogincheckBox {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
 }
 
 #Logincheck {
-    width: 20px;
-    /* border: 1px solid #c40909; */
-    /* color: blue; */
-    height: 20px;
-    /* background-color: #00000000 !important; */
+  width: 20px;
+  height: 20px;
 }
 
-input[type=checkbox], input[type=checkbox]:checked {
-    -moz-appearance:none;
-    -webkit-appearance:none;
-    -o-appearance:none;
-    border: 2px solid white;
-  }
+input[type="checkbox"],
+input[type="checkbox"]:checked {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -o-appearance: none;
+  border: 2px solid white;
+}
 
-
-
-#LoginLinks{
-    /* font-family: Inter; */
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 24.2px;
-    text-decoration: underline;
-    /* text-align: left; */
-
+#LoginLinks {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24.2px;
+  text-decoration: underline;
 }

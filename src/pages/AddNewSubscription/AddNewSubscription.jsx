@@ -1,17 +1,15 @@
 import './AddNewSubscription.css';
 import { Link, useNavigate } from "react-router-dom";
-import InputField from '../../fields/InputField';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Inventory from '../../image/Inventory.png';
 import customerCare from '../../image/customerCare.png';
 import AssetManagement from '../../image/AssetManagement.png';
 import PointOfSale from '../../image/PointOfSale.png';
 import { IoIosArrowDown } from "react-icons/io";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import Header from '../../Components/Header';
-import Sidebar from '../../Components/Side';
-import Footer from '../../Components/Foot';
-import '../../css/App.css';
+import Header from '../../Components/Header/Header';
+import Sidebar from '../../Components/Side/Side';
+import Footer from '../../Components/Footer/Foot';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import useAuth from '../../hooks/useAuth';
@@ -19,7 +17,7 @@ import api from '../../api/details'
 
 function AddNewSubscription() {
 
-    const { OrganisationName, setOrganisationName, eMail, seteMail, contactNo, setContactNo, licenseTerm, setLicenseTerm, licenseExpiry, setLicenseExpiry, setStatus, address, setAddress, subscriptionDate, setSubscritptionDate, subscriptionFor, setSubscriptionFor, contactPerson, setContactPerson, details, authToken, status, setDetails, setOrgType, isLoggedIn, setLoggedIn } = useAuth();
+    const { OrganisationName, setOrganisationName, eMail, seteMail, contactNo, setContactNo, licenseTerm, setLicenseTerm, licenseExpiry, setLicenseExpiry, setStatus, address, setAddress, subscriptionDate, setSubscritptionDate, subscriptionFor, setSubscriptionFor, contactPerson, setContactPerson, details, authToken, status, setDetails, setOrgType, isLoggedIn, setLoggedIn, licenseTermValue, setLicenseTermValue } = useAuth();
 
     const navigate = useNavigate();
 
@@ -51,18 +49,50 @@ function AddNewSubscription() {
         setAddress('');
         setSubscritptionDate('');
         setOrgType('');
-        setLicenseTerm('');
+        setLicenseTermValue('');
         setLicenseExpiry('');
         setStatus('');
     }
 
     useEffect(() => {
+        const fetchLicenseTerm = async () => {
+            const AuthToken = JSON.parse(localStorage.getItem('AuthToken'))
+            try {
+                const response = await api.get("/subscription/getLicenseTerm", {
+                    headers: {
+                        "authToken": AuthToken.AuthorizationToken
+                    }
+                });
+                console.log(response.data);
+                const TempDetails = response.data
+                setDetails(response.data);
+                if (TempDetails.length > 0) {
+                    setLicenseTerm(TempDetails);
+                }
+                else {
+                    localStorage.removeItem('AuthToken')
+                    setLoggedIn(false)
+                }
+            }
+            catch (err) {
+                if (err.response) {
+                    console.log(`Error: ${err.response.status} - ${err.response.statusText}`);
+                    console.log('Response data:', err.response.data);
+                } else {
+                    console.log(`Error: ${err.message}`);
+                }
+            }
+        }
+        fetchLicenseTerm();
+    }, []);
+
+    useEffect(() => {
         calculateExpiry();
-    }, [subscriptionDate, licenseTerm]);
+    }, [subscriptionDate, licenseTerm, licenseTermValue]);
 
     const calculateExpiry = () => {
         const startDateObj = new Date(subscriptionDate);
-        const expiryDateObj = new Date(startDateObj.getTime() + licenseTerm * 365 * 24 * 60 * 60 * 1000);
+        const expiryDateObj = new Date(startDateObj.getTime() + licenseTermValue * 24 * 60 * 60 * 1000); // licenseTerm is in days
         if (!isNaN(expiryDateObj.getTime())) {
             const year = expiryDateObj.getFullYear();
             const month = (expiryDateObj.getMonth() + 1).toString().padStart(2, '0');
@@ -107,7 +137,7 @@ function AddNewSubscription() {
             organizationName: OrganisationName,
             email: eMail,
             phoneNumber: contactNo,
-            licenceterm: licenseTerm,
+            licenceterm: licenseTermValue,
             contactPerson: contactPerson,
             expirydatetime: licenseExpiry,
             activationstatus: status,
@@ -158,15 +188,81 @@ function AddNewSubscription() {
                 <div className='addNewSubscription'>
                     <h2>ADD SUBSCRIPTION</h2>
                     <form onSubmit={handleSubmit} className='addForm'>
-                        <InputField classname="orgname" labelName="Organization Name" type="text" placeholder="Enter Organization Name" value={OrganisationName} setValue={setOrganisationName} />
-                        <InputField classname="email" labelName="Email" type='text' placeholder='Enter Your Email' value={eMail} setValue={seteMail} />
-                        <InputField classname="contactperson" labelName="Contact Person" type='text' placeholder='Enter Contact Person' value={contactPerson} setValue={setContactPerson} />
-                        <InputField classname="contactno" labelName="Contact Number" type='text' placeholder='Enter Your Contact Number' value={contactNo} setValue={setContactNo} />
-                        <InputField classname="address" labelName="Address" type='text' placeholder='Enter Your Address' value={address} setValue={setAddress} />
-                        <div className='licenseTerm'>
-                            <InputField classname="licenseterm" labelName="License Term" type='text' placeholder='License Term' value={licenseTerm} setValue={setLicenseTerm} />
-                            <IoIosArrowDown className='downarrow' />
+                        <div className="field">
+                            <label htmlFor='orgname'>Organization Name<span className='star'>*</span></label>
+                            <input
+                                id='orgname'
+                                type='text'
+                                placeholder='Enter Organization Name'
+                                value={OrganisationName}
+                                required
+                                onChange={(e) => setOrganisationName(e.target.value)}
+                            />
                         </div>
+
+                        <div className="field">
+                            <label htmlFor='email'>Email<span className='star'>*</span></label>
+                            <input
+                                id='email'
+                                type='text'
+                                placeholder='Enter Your Email'
+                                value={eMail}
+                                required
+                                onChange={(e) => seteMail(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="field">
+                            <label htmlFor='contactperson'>Contact Person<span className='star'>*</span></label>
+                            <input
+                                id='contactperson'
+                                type='text'
+                                placeholder='Enter Contact Person'
+                                value={contactPerson}
+                                required
+                                onChange={(e) => setContactPerson(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="field">
+                            <label htmlFor="contactno">Contact Number<span className='star'>*</span></label>
+                            <input
+                                id="contactno"
+                                type='text'
+                                placeholder='Enter Your Contact Number'
+                                value={contactNo}
+                                required
+                                onChange={(e) => setContactNo(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="field">
+                            <label htmlFor='address'>Address<span className='star'>*</span></label>
+                            <input
+                                id='address'
+                                type='text'
+                                placeholder='Enter Your Address'
+                                value={address}
+                                required
+                                onChange={(e) => setAddress(e.target.value)}
+                            />
+                        </div>
+
+                        <div className='licenseTerm'>
+                            <div className="field">
+                                <label id='lblLicenseTerm'>License Term<span className='star'>*</span></label>
+                                <select name="License Term" className="licenseterm" value={licenseTermValue} onChange={(e) => setLicenseTermValue(e.target.value)}>
+                                    <option value="" disabled>Choose Anyone of the Plan</option>
+                                    {Array.isArray(licenseTerm) && licenseTerm.map((value, index) => (
+                                        <option key={index} value={value.numberOfDays}>
+                                            {value.licenseTerm}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            {/* <IoIosArrowDown className='downarrow' /> */}
+                        </div>
+
                         <div className="field">
                             <label htmlFor='subscriptionstartdate'>Subscription Start Date<span className='star'>*</span></label>
                             <DatePicker
@@ -255,9 +351,9 @@ function AddNewSubscription() {
                         </div>
                     </form>
                 </div>
-            </main>
+            </main >
             <Footer />
-        </div>
+        </div >
     );
 }
 export default AddNewSubscription;

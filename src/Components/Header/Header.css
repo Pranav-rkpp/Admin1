@@ -1,0 +1,117 @@
+/* Header Part */
+.Header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: .5rem;
+  padding-bottom: 1rem;
+}
+
+.companyLogoTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 10%;
+  gap: 2%;
+}
+
+.companyLogoTitle h1 {
+  background: -webkit-linear-gradient(#000000, rgba(0, 0, 0, 0));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: Krona One;
+  font-size: 36px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+
+
+.Branch {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.select-wrapper select {
+  border: none;
+  background-color: #E9EDF6;
+  font-size: 16px;
+  font-weight: 700;
+  padding-right: 2rem;
+  /* Make space for the icon */
+  appearance: none;
+  /* Remove default arrow */
+  -webkit-appearance: none;
+  /* Remove default arrow in Safari */
+  -moz-appearance: none;
+  /* Remove default arrow in Firefox */
+}
+
+.select-wrapper .select-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  /* Allow clicks to go through the icon */
+}
+
+
+.country {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 3px;
+  border: 1px solid #6B6B6B;
+
+  border-radius: 18px;
+  gap: .5rem;
+}
+
+.country svg {
+  width: 26px;
+  height: 26px;
+}
+
+.NotifyIcon {
+  width: 42px;
+  height: 42px;
+  margin-left: -3%;
+}
+
+.Profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.Profile img {
+  border-radius: 50%;
+  outline: 3px solid #7691F9;
+}
+
+.Profile h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.Profile p {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.settingIcon {
+  width: 24px;
+  height: 24px;
+  margin-left: 50px;
+}

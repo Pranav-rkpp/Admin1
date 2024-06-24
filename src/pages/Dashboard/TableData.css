@@ -1,49 +1,44 @@
-.tableData{
+.tableData {
     width: 100%;
 }
 
-.tableData th{ 
+.tableData th {
     font-size: 13px;
     font-weight: 700;
     text-align: left;
     padding: 1rem;
 }
 
-.tableData tr{
+.tableData tbody tr {
     background: linear-gradient(180deg, #CFD7E2 0%, rgba(207, 215, 226, 0) 100%);
 }
 
-.tableData td{
-    padding:.75rem 1rem;
+.tableData td {
+    padding: .75rem 1rem;
     font-size: 13px;
-    font-weight: 400;  
+    font-weight: 400;
 }
 
-.status{
-    /* width: 43px;
-    height: 18px; */
+.status {
     border-radius: 3px;
     background-color: rgb(100, 155, 97);
     border: 1px solid #CED7FB;
     color: #F5F5F5;
 }
 
-.tableData svg{
+.tableData svg {
     color: #8497C6;
     width: 20px;
     height: 20px;
     margin-left: 17.5%;
 }
 
-.tableData tr:first-child{
+.tableData tbody tr:first-child {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    /* border: 2px solid red; */
 }
-.tableData tr:last-child{
+
+.tableData tbody tr:last-child {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    /* border: 2px solid green; */
 }
-
-

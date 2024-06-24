@@ -5,7 +5,7 @@ import ChangePassword from './pages/ChangePassword/ChangePassword'
 import SignInForm from './pages/Login/SignInForm'
 import AddNewSubscription from './pages/AddNewSubscription/AddNewSubscription'
 import Dashboard from './pages/Dashboard/Dashboard'
-import RequireAuth from './Components/RequireAuth'
+import RequireAuth from './Components/RequireAuth/RequireAuth'
 import EditSubscription from './pages/EditSubscription/EditSubscription'
 
 function Admin() {

@@ -4,7 +4,7 @@ import { IoIosMail } from "react-icons/io";
 import { FaRegCalendarCheck } from "react-icons/fa6";
 import { IoMdCheckboxOutline } from "react-icons/io";
 import { ImStatsDots } from "react-icons/im";
-import '../css/Sidebar.css';
+import './Sidebar.css';
 
 const Sidebar = () => {
     return (
